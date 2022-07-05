@@ -33,11 +33,14 @@ class BatteryManagementSystem:
         return True
 
     def battery_is_ok(self):
-        if self.temperature_is_ok() and self.soc_is_ok() and self.charge_rate_is_ok():
-            print("Battery is ok")
-            return True
+        check_limits = [self.temperature_is_ok(), self.soc_is_ok(), self.charge_rate_is_ok()]
 
-        return False
+        for check in check_limits:
+            if check is False:
+                print("Battery is not ok")
+                return False
+
+        return True
 
 
 if __name__ == '__main__':
